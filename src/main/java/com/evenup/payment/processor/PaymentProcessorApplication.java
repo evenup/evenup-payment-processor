@@ -27,7 +27,7 @@ public class PaymentProcessorApplication extends
     public void initialize(Bootstrap<PaymentProcessorConfiguration> bootstrap) {
         bootstrap.addBundle(shiroBundle);
         guiceBundle = GuiceBundle.<PaymentProcessorConfiguration> newBuilder()
-                // .addModule(new NotificationsConsumerModule())
+                .addModule(new PaymentsModule())
                 .setConfigClass(PaymentProcessorConfiguration.class)
                 .enableAutoConfig(getClass().getPackage().getName()).build();
         bootstrap.addBundle(guiceBundle);
@@ -38,6 +38,10 @@ public class PaymentProcessorApplication extends
             Environment environment) throws Exception {
         // TODO Auto-generated method stub
 
+    }
+    
+    public static void main(String[] args) throws Exception {
+        new PaymentProcessorApplication().run(args);
     }
 
 }

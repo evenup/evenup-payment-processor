@@ -1,7 +1,5 @@
 package com.evenup.payment.processor
 
-//import com.yammer.dropwizard.testing.ResourceTest
-
 import io.dropwizard.testing.junit.ResourceTestRule
 
 import org.junit.Rule

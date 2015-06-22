@@ -4,18 +4,12 @@ import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.testing.junit.ResourceTestRule;
 
+import com.evenup.payment.processor.dto.PaymentDTO;
 import com.sun.jersey.api.client.ClientResponse;
 
 class PaymentWriterResourceTest extends ResourceSpecification {
-
-    @Override
-    public Object getResource() {
-        return new PaymentWriterResource();
-    }
-
-    def "successfully write a payment"() {
-        setup:
-        def jsonIn = '''
+    
+    private String jsonIn = '''
 {
     "creditCardInfo": {
         "number": "5555555555554444",
@@ -35,12 +29,39 @@ class PaymentWriterResourceTest extends ResourceSpecification {
     "remitAmount": 25.00
 }
         '''
+
+    PaymentWriter writer
+    
+    @Override
+    public Object getResource() {
+        writer = Mock()
+        return new PaymentWriterResource(new SingletonWrapper(writer));
+    }
+
+    def "successfully write a payment"() {
+        setup:
+        PaymentDTO dtoCapture
         
         when:
         ClientResponse response = addPayment(jsonIn)
         
         then:
+        1 * writer.write(_) >> { args ->
+            dtoCapture = args[0]
+        }
+        dtoCapture.creditCardInfo.number == '5555555555554444'
         response.status == 201
+    }
+    
+    def "IOException should cause a 500"() {
+        setup:
+        writer.write(_) >> {throw new IOException()}
+        
+        when:
+        ClientResponse response = addPayment(jsonIn)
+        
+        then:
+        response.status == 500
     }
     
     private ClientResponse addPayment(json) {
