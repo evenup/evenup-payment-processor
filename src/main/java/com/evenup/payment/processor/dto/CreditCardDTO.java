@@ -1,5 +1,7 @@
 package com.evenup.payment.processor.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
  * Copyright 2014 EvenUp, Inc.
@@ -7,6 +9,7 @@ package com.evenup.payment.processor.dto;
  * @author Kevin G. McManus
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CreditCardDTO {
     private String accountHolderName;
     private String number;

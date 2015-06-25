@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import org.apache.shiro.crypto.CipherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +19,7 @@ public class PaymentsModule extends AbstractModule {
     }
     
     @Provides
-    public PaymentWriter provideWriter(PaymentProcessorConfiguration config, CipherService cipherService)
+    public PaymentWriter provideWriter(PaymentProcessorConfiguration config/*, CipherService cipherService*/)
             throws IOException {
         try {
             FileOutputStream fos = new FileOutputStream(config.getCsvFilename(), true);

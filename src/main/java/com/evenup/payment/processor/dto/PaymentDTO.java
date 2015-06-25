@@ -1,5 +1,8 @@
 package com.evenup.payment.processor.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentDTO {
 
     private CreditCardDTO creditCardInfo;
