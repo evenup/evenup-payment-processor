@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public class PaymentsModule extends AbstractModule {
+public class PaymentProcessorModule extends AbstractModule {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override

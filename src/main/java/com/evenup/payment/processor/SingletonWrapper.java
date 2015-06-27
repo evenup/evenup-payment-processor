@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 
 /**
  * Unfortunately, this is needed because Guice and Dropwizard act strange when it
- * comes to injecting the configuration (see {@link PaymentsModule}. 
+ * comes to injecting the configuration (see {@link PaymentProcessorModule}. 
  *
  */
 @Singleton

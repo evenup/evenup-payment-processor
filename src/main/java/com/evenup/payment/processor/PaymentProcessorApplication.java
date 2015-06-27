@@ -27,7 +27,7 @@ public class PaymentProcessorApplication extends
     public void initialize(Bootstrap<PaymentProcessorConfiguration> bootstrap) {
         bootstrap.addBundle(shiroBundle);
         guiceBundle = GuiceBundle.<PaymentProcessorConfiguration> newBuilder()
-                .addModule(new PaymentsModule())
+                .addModule(new PaymentProcessorModule())
                 .setConfigClass(PaymentProcessorConfiguration.class)
                 .enableAutoConfig(getClass().getPackage().getName()).build();
         bootstrap.addBundle(guiceBundle);
