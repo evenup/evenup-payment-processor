@@ -36,7 +36,6 @@ public class PaymentProcessorApplication extends
     @Override
     public void run(PaymentProcessorConfiguration configuration,
             Environment environment) throws Exception {
-        // TODO Auto-generated method stub
 
     }
     
