@@ -12,7 +12,7 @@
     <groovy-version>2.0.5</groovy-version>
     <groovy-compiler-version>2.7.0-01</groovy-compiler-version>
     <groovy-eclipse-batch>2.0.4-04</groovy-eclipse-batch>
-    <main-class>com.evenup.rest.application.EvenUpApiApplication</main-class>
+    <main-class>com.evenup.payment.processor.PaymentProcessorApplication</main-class>
   </properties>
 
   <dependencies>
