@@ -1,5 +1,7 @@
 package com.evenup.payment.processor
 
+import org.supercsv.encoder.DefaultCsvEncoder;
+
 import com.evenup.payment.processor.dto.CreditCardDTO;
 import com.evenup.payment.processor.dto.PaymentDTO;
 import com.google.common.collect.ImmutableMap;
@@ -25,7 +27,7 @@ class CsvPaymentWriterTest extends Specification {
             creditCardInfo: new CreditCardDTO(number: '123412341234'))
         def im = ImmutableMap.of("Payment Date", "requestedPaymentDate", "Number", "creditCardInfo.number")
         PaymentWriter converter = new CsvPaymentWriter(writer, 
-            im)
+            im, new DefaultCsvEncoder())
         
         when:
         converter.write(dto)

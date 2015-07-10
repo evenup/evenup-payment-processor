@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import org.secnod.dropwizard.shiro.ShiroConfiguration;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 import io.dropwizard.Configuration;
@@ -18,6 +19,8 @@ public class PaymentProcessorConfiguration extends Configuration {
     @NotNull
     private String csvFilename;
     
+    private String keyFilePath;
+    
     public ShiroConfiguration getShiro() {
         return shiro; 
     }
@@ -28,6 +31,10 @@ public class PaymentProcessorConfiguration extends Configuration {
 
     public String getCsvFilename() {
         return csvFilename;
+    }
+
+    public Optional<String> getKeyFilePath() {
+        return Optional.fromNullable(keyFilePath);
     }
 
 }
