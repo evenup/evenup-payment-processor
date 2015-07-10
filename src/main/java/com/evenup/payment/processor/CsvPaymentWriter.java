@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map.Entry;
 
+import org.supercsv.encoder.CsvEncoder;
 import org.supercsv.io.dozer.CsvDozerBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
@@ -18,11 +19,12 @@ public class CsvPaymentWriter implements PaymentWriter {
     /**
      * 
      * @param writer - will be wrapped in a {@link BufferedWriter}.
+     * @param encoder - encoder used when writing out csv fields
      * @throws IOException
      */
     public CsvPaymentWriter(
             final Writer writer, 
-            final ImmutableMap<String, String> headerToBeanField) throws IOException {
+            final ImmutableMap<String, String> headerToBeanField, CsvEncoder encoder) throws IOException {
         final String[] fieldMappings = new String[headerToBeanField.size()];
         final String[] headers = new String[headerToBeanField.size()];
         int i = 0;
@@ -30,7 +32,8 @@ public class CsvPaymentWriter implements PaymentWriter {
             fieldMappings[i] = entry.getValue();
             headers[i++] = entry.getKey();
         }
-        beanWriter = new CsvDozerBeanWriter(writer, CsvPreference.STANDARD_PREFERENCE);
+        final CsvPreference prefs = new CsvPreference.Builder(CsvPreference.STANDARD_PREFERENCE).useEncoder(encoder).build();
+        beanWriter = new CsvDozerBeanWriter(writer, prefs);
         beanWriter.configureBeanMapping(PaymentDTO.class, fieldMappings);
         writeHeader(headers);
     }
