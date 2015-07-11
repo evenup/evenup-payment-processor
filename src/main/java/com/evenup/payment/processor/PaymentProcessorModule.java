@@ -13,7 +13,8 @@ import org.supercsv.encoder.CsvEncoder;
 import org.supercsv.encoder.DefaultCsvEncoder;
 
 import com.evenup.payment.processor.crypto.AesKeyManager;
-import com.evenup.payment.processor.crypto.EncryptingCsvEncoder;
+import com.evenup.payment.processor.crypto.CryptoCsvEncoder;
+import com.evenup.payment.processor.crypto.CryptoCsvEncoder.DIRECTION;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
@@ -38,9 +39,11 @@ public class PaymentProcessorModule extends AbstractModule {
             if (config.getKeyFilePath().isPresent()) {
                 logger.info("Key file provided [{}]; file will be encrypted.",
                         config.getKeyFilePath().get());
-                encoder = new EncryptingCsvEncoder(encoder, cipherService,
-                        AesKeyManager
-                                .keyFromPath(config.getKeyFilePath().get()));
+                encoder = new CryptoCsvEncoder(
+                        encoder, 
+                        cipherService,
+                        AesKeyManager.keyFromPath(config.getKeyFilePath().get()),
+                        DIRECTION.ENCRYPTING);
 
             }
             return new CsvPaymentWriter(new OutputStreamWriter(os, "UTF-8"),
