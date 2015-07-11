@@ -12,7 +12,7 @@ import org.supercsv.prefs.CsvPreference;
 import org.supercsv.util.CsvContext;
 
 /**
- * A Super CSV encoder that will encrypt every field using the Shiro
+ * A Super CSV encoder that will encrypt/decrypt every field using the Shiro
  * {@link CipherService} and key passed into the constructor.  Also contains
  * decryption.
  * <p>
@@ -21,23 +21,35 @@ import org.supercsv.util.CsvContext;
  * @author Kevin G. McManus
  *
  */
-public class EncryptingCsvEncoder implements CsvEncoder {
+public class CryptoCsvEncoder implements CsvEncoder {
     private static final String DEFAULT_ENCODING = "ISO-8859-1";
 
     private final CsvEncoder encoder;
     private final CipherService cipherService;
-    private byte[] key;
+    private final byte[] key;
+    private final DIRECTION direction;
 
-    public EncryptingCsvEncoder(CsvEncoder encoder, CipherService cipherService, byte[] key) {
+    // N.B. Don't ever add to this.
+    public static enum DIRECTION {
+        ENCRYPTING,
+        DECRYPTING
+    }
+    
+    public CryptoCsvEncoder(CsvEncoder encoder, CipherService cipherService, byte[] key, DIRECTION direction) {
         this.encoder = encoder;
         this.cipherService = cipherService;
         this.key = key;
+        this.direction = direction;
     }
 
     @Override
     public String encode(String input, CsvContext context,
             CsvPreference preference) {
         String encoded = encoder.encode(input, context, preference);
+        return direction == DIRECTION.ENCRYPTING ? encrypt(encoded) : decrypt(encoded);
+    }
+
+    private String encrypt(String encoded) {
         try {
             final byte[] bytesToEncrypt = CodecSupport.toBytes(encoded);
             final ByteSource encrypted = cipherService.encrypt(bytesToEncrypt, key);
@@ -48,7 +60,7 @@ public class EncryptingCsvEncoder implements CsvEncoder {
         }
     }
 
-    public String decrypt(String input) {
+    private String decrypt(String input) {
         byte[] bytesToDecrypt;
         try {
             bytesToDecrypt = input.getBytes(DEFAULT_ENCODING);

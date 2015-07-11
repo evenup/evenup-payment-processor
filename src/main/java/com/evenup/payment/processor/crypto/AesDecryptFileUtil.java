@@ -1,7 +1,6 @@
 package com.evenup.payment.processor.crypto;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -9,41 +8,35 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.AesCipherService;
+import org.supercsv.encoder.DefaultCsvEncoder;
 import org.supercsv.io.CsvListReader;
+import org.supercsv.io.CsvListWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
+import com.evenup.payment.processor.crypto.CryptoCsvEncoder.DIRECTION;
 
 public class AesDecryptFileUtil {
 
-    @SuppressWarnings("unchecked")
     void decrypt(final String keyFilename, String inFilename, String outFilename)
             throws Exception {
         
-        final EncryptingCsvEncoder encryptingCsvEncoder = new EncryptingCsvEncoder(
-                null, new AesCipherService(),
-                AesKeyManager.keyFromPath(keyFilename));
+        final CryptoCsvEncoder decryptingCsvEncoder = new CryptoCsvEncoder(
+                new DefaultCsvEncoder(), new AesCipherService(),
+                AesKeyManager.keyFromPath(keyFilename),
+                DIRECTION.DECRYPTING);
         
-        Function<String, String> decrypt = new Function<String, String>() {
-
-            @Override
-            public String apply(String input) {
-                return encryptingCsvEncoder.decrypt(input);
-            }
+        CsvPreference pref = new CsvPreference.Builder(CsvPreference.STANDARD_PREFERENCE).useEncoder(decryptingCsvEncoder).build();
+        try (CsvListWriter writer = 
+                new CsvListWriter(
+                        Files.newBufferedWriter(Paths.get(outFilename), Charset.defaultCharset()), 
+                        pref)) {
             
-        };
-        
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outFilename), Charset.defaultCharset())) {
-
             Reader reader = new BufferedReader(new FileReader(inFilename));
             CsvListReader listReader = new CsvListReader(reader, CsvPreference.STANDARD_PREFERENCE);
             List<String> row;
             while ((row = listReader.read()) != null) {
-                writer.write(StringUtils.join(Iterables.transform(row, decrypt)));
-                writer.newLine();
+                writer.write(row);
             }
             listReader.close();
         }
