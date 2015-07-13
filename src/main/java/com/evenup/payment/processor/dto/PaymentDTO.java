@@ -12,6 +12,10 @@ public class PaymentDTO {
     private Double remitAmount;
     @NotNull
     private String accountId;
+    private String accountNumber;
+    private String accountName;
+    private Boolean testAccount;
+    
     
     public CreditCardDTO getCreditCardInfo() {
         return creditCardInfo;
@@ -28,5 +32,16 @@ public class PaymentDTO {
     public String getAccountId() {
         return accountId;
     }
-    
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public Boolean getTestAccount() {
+        return testAccount;
+    }
 }
