@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.evenup.payment.processor.dto.PaymentDTO;
 
 /**
- * Responsible for converting the PaymentDTO into a string.
+ * Responsible for writing PaymentDTO's.
  * <p>
  * Copyright 2014 EvenUp, Inc.
  *

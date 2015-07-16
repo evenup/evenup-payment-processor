@@ -9,6 +9,15 @@ import com.google.common.collect.ImmutableMap;
 
 import io.dropwizard.Configuration;
 
+/**
+ * Holds all config for the application.  Dropwizard populates
+ * this from the YAML file given when starting up.
+ * <p>
+ * Copyright 2014 EvenUp, Inc.
+ *
+ * @author Kevin G. McManus
+ *
+ */
 public class PaymentProcessorConfiguration extends Configuration {
     
     private ShiroConfiguration shiro;

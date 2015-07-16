@@ -18,7 +18,7 @@ import com.evenup.payment.processor.dto.PaymentDTO;
 import com.google.inject.Inject;
 
 /**
- * Writes payments to an encrypted file.
+ * Writes payments to a (potentially) encrypted file.
  * <p>
  * Copyright 2014 EvenUp, Inc.
  *
@@ -34,7 +34,7 @@ public class PaymentWriterResource {
     
     @Inject
     public PaymentWriterResource(SingletonWrapper<PaymentWriter> converter) {
-        this.writer = converter.getWriter();
+        this.writer = converter.getT();
     }
     
     @POST
