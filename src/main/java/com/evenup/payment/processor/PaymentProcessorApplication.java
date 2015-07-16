@@ -9,6 +9,14 @@ import org.secnod.dropwizard.shiro.ShiroConfiguration;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
+/**
+ * Entry point for the payment processor
+ * <p>
+ * Copyright 2014 EvenUp, Inc.
+ *
+ * @author Kevin G. McManus
+ *
+ */
 public class PaymentProcessorApplication extends
         Application<PaymentProcessorConfiguration> {
 

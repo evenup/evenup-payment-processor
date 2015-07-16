@@ -16,6 +16,14 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.evenup.payment.processor.crypto.CryptoCsvEncoder.DIRECTION;
 
+/**
+ * Utility that decrypts a payment CSV file.
+ * <p>
+ * Copyright 2014 EvenUp, Inc.
+ *
+ * @author Kevin G. McManus
+ *
+ */
 public class AesDecryptFileUtil {
 
     void decrypt(final String keyFilename, String inFilename, String outFilename)

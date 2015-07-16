@@ -11,15 +11,27 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.evenup.payment.processor.dto.PaymentDTO;
 import com.google.common.collect.ImmutableMap;
+import com.google.inject.Singleton;
 
+/**
+ * Writes payment data to a CSV file.  The fields written are determined 
+ * by the Map passed into the constructor.
+ * <p>
+ * Copyright 2014 EvenUp, Inc.
+ *
+ * @author Kevin G. McManus
+ *
+ */
+@Singleton
 public class CsvPaymentWriter implements PaymentWriter {
     
     private final CsvDozerBeanWriter beanWriter;
     
     /**
      * 
-     * @param writer - will be wrapped in a {@link BufferedWriter}.
-     * @param encoder - encoder used when writing out csv fields
+     * @param writer underlying writer, will be wrapped in a {@link BufferedWriter}.
+     * @param headerToBeanField maps column headers to the fields in {@link PaymentDTO}.
+     * @param encoder encoder used when writing out csv fields
      * @throws IOException
      */
     public CsvPaymentWriter(
