@@ -1,6 +1,5 @@
 package com.evenup.payment.processor.crypto;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,9 +30,7 @@ public class AesKeyManager {
             NoSuchAlgorithmException {
         byte[] encoded = Base64.encode(cipherService.generateNewKey(keySize)
                 .getEncoded());
-        try (FileOutputStream fos = new FileOutputStream(filename)) {
-            fos.write(encoded);
-        }
+        Files.write(Paths.get(filename), encoded);
     }
 
 
@@ -46,8 +43,8 @@ public class AesKeyManager {
         ArgumentParser parser = ArgumentParsers.newArgumentParser("AesKeyManager")
         .defaultHelp(true)
         .description("Generates an AES Key compatible with the payment processor.");
-        parser.addArgument("-f", "--file").required(true);
-        parser.addArgument("-s","--size").setDefault(128);
+        parser.addArgument("file").help("the file the key will be written to").required(true);
+        parser.addArgument("-s","--size").help("the size in bits for the generated key (128, 192 and 256).  if greater than 128, java requires extra jars added to the JVM").setDefault(128);
         
         Namespace ns = null;
         ns = parser.parseArgsOrFail(args);

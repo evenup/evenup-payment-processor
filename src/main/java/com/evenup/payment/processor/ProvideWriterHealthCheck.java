@@ -25,6 +25,7 @@ public class ProvideWriterHealthCheck extends InjectableHealthCheck {
     protected Result check() throws Exception {
         try {
             SingletonWrapper<PaymentWriter> singletonWrapper = converter.get();
+            @SuppressWarnings("unused")
             PaymentWriter writer = singletonWrapper.getT();
         } catch (Throwable t) {
             return Result.unhealthy("Unable to produce a PaymentWriter. " + t.getMessage());
