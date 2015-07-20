@@ -17,7 +17,6 @@ import com.evenup.payment.processor.crypto.CryptoCsvEncoder;
 import com.evenup.payment.processor.crypto.CryptoCsvEncoder.DIRECTION;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.Singleton;
 
 /**
  * Wires the object graph for the payment processor.
