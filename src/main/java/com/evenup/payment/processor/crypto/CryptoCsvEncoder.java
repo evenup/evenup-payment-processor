@@ -16,7 +16,11 @@ import org.supercsv.util.CsvContext;
  * {@link CipherService} and key passed into the constructor.  Also contains
  * decryption.
  * <p>
- * Copyright 2014 EvenUp, Inc.
+ * Copyright 2015 EvenUp, Inc.
+ * <p>
+ * THE  CODE IS  PROVIDED "AS  IS",  WITHOUT WARRANTY  OF ANY  KIND, EXPRESS  
+ * OR IMPLIED,  INCLUDING BUT  NOT LIMITED  TO THE WARRANTIES  OF 
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  *
  * @author Kevin G. McManus
  *

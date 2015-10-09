@@ -13,7 +13,11 @@ import io.dropwizard.Configuration;
  * Holds all config for the application.  Dropwizard populates
  * this from the YAML file given when starting up.
  * <p>
- * Copyright 2014 EvenUp, Inc.
+ * Copyright 2015 EvenUp, Inc.
+ * <br><br>
+ * THE  CODE IS  PROVIDED "AS  IS",  WITHOUT WARRANTY  OF ANY  KIND, EXPRESS  
+ * OR IMPLIED,  INCLUDING BUT  NOT LIMITED  TO THE WARRANTIES  OF 
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  *
  * @author Kevin G. McManus
  *
