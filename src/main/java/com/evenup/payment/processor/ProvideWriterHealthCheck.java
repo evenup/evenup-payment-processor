@@ -6,8 +6,12 @@ import com.hubspot.dropwizard.guice.InjectableHealthCheck;
 
 /**
  * This is to make sure create the writer.  Otherwise, we would find out at our first request.
+ * <br><br>
+ * Current Copyright 2015 EvenUp, Inc.
  * <p>
- * Current Copyright 2014 EvenUp, Inc.
+ * THE  CODE IS  PROVIDED "AS  IS",  WITHOUT WARRANTY  OF ANY  KIND, EXPRESS  
+ * OR IMPLIED,  INCLUDING BUT  NOT LIMITED  TO THE WARRANTIES  OF 
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  *
  * @author Kevin G. McManus
  *

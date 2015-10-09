@@ -7,6 +7,17 @@ import io.dropwizard.testing.junit.ResourceTestRule;
 import com.evenup.payment.processor.dto.PaymentDTO;
 import com.sun.jersey.api.client.ClientResponse;
 
+/**
+ * 
+ * Copyright 2015 EvenUp, Inc.
+ * <p>
+ * THE  CODE IS  PROVIDED "AS  IS",  WITHOUT WARRANTY  OF ANY  KIND, EXPRESS  
+ * OR IMPLIED,  INCLUDING BUT  NOT LIMITED  TO THE WARRANTIES  OF 
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *
+ * @author Kevin G. McManus
+ *
+ */
 class PaymentWriterResourceTest extends ResourceSpecification {
     
     private String jsonIn = '''

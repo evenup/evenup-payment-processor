@@ -1,7 +1,7 @@
 #Payments Processor
 
 ##Overview
-This is a simple service that receives payment requests from the REST API and writes them to an encrypted CSV file.
+This is a simple service that receives payment requests from EvenUp and writes them to an encrypted CSV file.
 
 ###Data
 The payments data for a credit card has the following elements:
