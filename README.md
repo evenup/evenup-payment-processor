@@ -44,7 +44,7 @@ java -cp evenup-payment-processor-1.0.1-jar-with-dependencies.jar com.evenup.pay
 This resulting key file is passed to the processor in the keyFilePath field in the yaml file described above, e.g. keyFilePath: my-key-file.txt
 The payment processor is then run:
 
-java -jar evenup-payment-processor-1.0.1-SNAPSHOT-jar-with-dependencies.jar server <path to config file>
+java -jar evenup-payment-processor-1.0.1-jar-with-dependencies.jar server <path to config file>
 
 When you are ready to decrypt the file:
 
