@@ -37,6 +37,16 @@ java -jar shiro-tools-hasher-1.2.3-cli.jar -a SHA-256 <password>
    2. The full path to the file is then referenced in keyFilePath.
  
 ##Running
-The payment processor is run:
+Prior to running a key file must be created if you intend to write this as an encrypted file.  This is done using a utility in the payment processor jar:
+
+java -cp evenup-payment-processor-1.0.1-jar-with-dependencies.jar com.evenup.payment.processor.crypto.AesKeyManager my-key-file.txt
+
+This resulting key file is passed to the processor in the keyFilePath field in the yaml file described above, e.g. keyFilePath: my-key-file.txt
+The payment processor is then run:
+
 java -jar evenup-payment-processor-1.0.1-SNAPSHOT-jar-with-dependencies.jar server <path to config file>
+
+When you are ready to decrypt the file:
+
+java -cp evenup-payment-processor-1.0.1-jar-with-dependencies.jar com.evenup.payment.processor.crypto.AesDecryptFileUtil my-key-file.txt  <path to csv file given in csvFilename in the yaml file> <path to output file>
 
