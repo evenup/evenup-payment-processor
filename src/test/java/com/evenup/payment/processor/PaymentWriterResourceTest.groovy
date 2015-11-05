@@ -4,7 +4,8 @@ import javax.ws.rs.core.MediaType;
 
 import io.dropwizard.testing.junit.ResourceTestRule;
 
-import com.evenup.payment.processor.dto.PaymentDTO;
+import com.evenup.payment.processor.dto.PaymentDTO
+import com.google.inject.Provider
 import com.sun.jersey.api.client.ClientResponse;
 
 /**
@@ -46,7 +47,9 @@ class PaymentWriterResourceTest extends ResourceSpecification {
     @Override
     public Object getResource() {
         writer = Mock()
-        return new PaymentWriterResource(new SingletonWrapper(writer));
+        return new PaymentWriterResource(new Provider<PaymentWriter>() {
+            PaymentWriter get() {return writer}
+        });
     }
 
     def "successfully write a payment"() {
