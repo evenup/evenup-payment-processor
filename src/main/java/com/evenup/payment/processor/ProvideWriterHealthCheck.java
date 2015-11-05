@@ -18,21 +18,21 @@ import com.hubspot.dropwizard.guice.InjectableHealthCheck;
  */
 public class ProvideWriterHealthCheck extends InjectableHealthCheck {
 
-    private Provider<SingletonWrapper<PaymentWriter>> converter;
+    private Provider<PaymentWriter> writerProvider;
 
     @Inject
-    public ProvideWriterHealthCheck(Provider<SingletonWrapper<PaymentWriter>> converter) {
-        this.converter = converter;
+    public ProvideWriterHealthCheck(Provider<PaymentWriter> writerProvider) {
+        this.writerProvider = writerProvider;
     }
 
     @Override
     protected Result check() throws Exception {
         try {
-            SingletonWrapper<PaymentWriter> singletonWrapper = converter.get();
-            @SuppressWarnings("unused")
-            PaymentWriter writer = singletonWrapper.getT();
-        } catch (Throwable t) {
-            return Result.unhealthy("Unable to produce a PaymentWriter. " + t.getMessage());
+            PaymentWriter writer = writerProvider.get();
+            if (writer == null)
+                return Result.unhealthy("Unable to produce a PaymentWriter.");
+        } catch (Exception e) {
+            return Result.unhealthy("Unable to produce a PaymentWriter. " + e.getMessage());
         }
         return Result.healthy();
     }

@@ -1,10 +1,11 @@
 package com.evenup.payment.processor;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotNull;
 
 import org.secnod.dropwizard.shiro.ShiroConfiguration;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 import io.dropwizard.Configuration;
@@ -32,6 +33,16 @@ public class PaymentProcessorConfiguration extends Configuration {
     @NotNull
     private String csvFilename;
     
+    @NotNull
+    private String fileDestination;
+    
+    public String getFileDestination() {
+        return fileDestination;
+    }
+
+    private String decryptedFileDestination;
+
+
     private String keyFilePath;
     
     public ShiroConfiguration getShiro() {
@@ -47,7 +58,11 @@ public class PaymentProcessorConfiguration extends Configuration {
     }
 
     public Optional<String> getKeyFilePath() {
-        return Optional.fromNullable(keyFilePath);
+        return Optional.ofNullable(keyFilePath);
+    }
+
+    public String getDecryptedFileDestination() {
+        return decryptedFileDestination;
     }
 
 }

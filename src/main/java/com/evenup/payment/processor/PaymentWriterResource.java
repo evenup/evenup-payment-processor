@@ -16,6 +16,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.evenup.payment.processor.dto.ErrorDTO;
 import com.evenup.payment.processor.dto.PaymentDTO;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Writes payments to a (potentially) encrypted file.
@@ -34,11 +35,11 @@ public class PaymentWriterResource {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(PaymentWriterResource.class);
     
-    private final PaymentWriter writer;
+    private final Provider<PaymentWriter> writerProvider;
     
     @Inject
-    public PaymentWriterResource(SingletonWrapper<PaymentWriter> converter) {
-        this.writer = converter.getT();
+    public PaymentWriterResource(Provider<PaymentWriter> writerProvider) {
+        this.writerProvider = writerProvider;
     }
     
     @POST
@@ -47,7 +48,9 @@ public class PaymentWriterResource {
     @Timed
     public Response addPayment(PaymentDTO paymentDTO) {
         try {
-            writer.write(paymentDTO);
+            synchronized (writerProvider) {
+                writerProvider.get().write(paymentDTO);
+            }
         } catch (IOException e) {
             LOGGER.error("Unable to write to file.", e);
             return Response.status(500).entity(new ErrorDTO("There was an error writing the payment.")).build();
