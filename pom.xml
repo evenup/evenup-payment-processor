@@ -5,7 +5,7 @@
   <groupId>evenup</groupId>
   <artifactId>evenup-payment-processor</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2-SNAPSHOT</version>
   <name>EvenUp Notifications Consumer</name>
   <url>http://maven.apache.org</url>
 
