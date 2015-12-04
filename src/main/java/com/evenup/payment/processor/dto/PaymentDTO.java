@@ -21,12 +21,13 @@ public class PaymentDTO {
     private CreditCardDTO creditCardInfo;
     private String requestedPaymentDate;
     private Double remitAmount;
+    private int dayOfTheMonth;
+    private int numberOfPayments;
     @NotNull
     private String accountId;
     private String accountNumber;
     private String accountName;
     private Boolean testAccount;
-    
     
     public CreditCardDTO getCreditCardInfo() {
         return creditCardInfo;
@@ -54,5 +55,13 @@ public class PaymentDTO {
 
     public Boolean getTestAccount() {
         return testAccount;
+    }
+
+    public int getDayOfTheMonth() {
+        return dayOfTheMonth;
+    }
+
+    public int getNumberOfPayments() {
+        return numberOfPayments;
     }
 }

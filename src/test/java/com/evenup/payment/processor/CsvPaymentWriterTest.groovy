@@ -1,6 +1,8 @@
 package com.evenup.payment.processor
 
-import org.supercsv.encoder.DefaultCsvEncoder;
+import org.supercsv.encoder.DefaultCsvEncoder
+import org.supercsv.io.dozer.CsvDozerBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.evenup.payment.processor.dto.CreditCardDTO;
 import com.evenup.payment.processor.dto.PaymentDTO;
@@ -22,23 +24,41 @@ import spock.lang.Specification
  *
  */
 class CsvPaymentWriterTest extends Specification {
-    
+    private Writer writer
+
+    def setup() {
+        writer = new StringWriter()
+    }
 
     def "dto goes in, csv comes out"() {
         setup:
-        Writer writer = new StringWriter()
-        def dto = new PaymentDTO(requestedPaymentDate: '2012-09-09', 
-            creditCardInfo: new CreditCardDTO(number: '123412341234'))
+        def dto = new PaymentDTO(requestedPaymentDate: '2012-09-09',
+        creditCardInfo: new CreditCardDTO(number: '123412341234'))
         def im = ImmutableMap.of("Payment Date", "requestedPaymentDate", "Number", "creditCardInfo.number")
-        PaymentWriter converter = new CsvPaymentWriter(writer, 
-            im, new DefaultCsvEncoder())
-        
+        PaymentWriter converter = new CsvPaymentWriter(writer,
+                im, new DefaultCsvEncoder())
+
         when:
         converter.write(dto)
-        
+
         then:
         def csv = writer.toString()
         'Payment Date,Number\r\n2012-09-09,123412341234\r\n' == csv
     }
-    
+
+    def "test payment plan"() {
+        setup:
+        def dto = new PaymentDTO(dayOfTheMonth: 15,
+        creditCardInfo: new CreditCardDTO(number: '123412341234'))
+        def im = ImmutableMap.of("Day of Month", "dayOfTheMonth", "Number", "creditCardInfo.number")
+        PaymentWriter converter = new CsvPaymentWriter(writer,
+                im, new DefaultCsvEncoder())
+
+        when:
+        converter.write(dto)
+
+        then:
+        def csv = writer.toString()
+        'Day of Month,Number\r\n15,123412341234\r\n' == csv
+    }
 }

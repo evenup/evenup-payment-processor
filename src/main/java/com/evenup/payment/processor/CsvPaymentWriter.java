@@ -61,7 +61,7 @@ public class CsvPaymentWriter implements PaymentWriter {
     
     public synchronized void write(PaymentDTO dto) throws IOException {
         beanWriter.write(dto);
-        beanWriter.flush(); // TODO consider removing...
+        beanWriter.flush();
     }
     
     public synchronized void close() throws IOException {
